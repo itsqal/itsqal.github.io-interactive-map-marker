@@ -1,14 +1,12 @@
 html {
-  zoom: 1 !important;
-  -webkit-text-size-adjust: 100% !important;
-  -ms-text-size-adjust: 100% !important;
-  text-size-adjust: 100% !important;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  zoom: 1 !important;
-  transform: scale(1) !important;
-  transform-origin: 0 0 !important;
+  margin: 0;
+  font-family: inherit;
 }
 
 /* Force consistent scaling for panels */
