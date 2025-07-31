@@ -66,6 +66,56 @@ class InteractiveMap {
       this.uiManager.showMessage(`Unknown map style: ${styleType}`, 'error');
     }
   }
+  
+  setupMobileControls() {
+    const toggleBtn = document.getElementById('mobile-toggle');
+    const controlPanel = document.querySelector('.legend-controls');
+    const overlay = document.getElementById('mobile-overlay');
+    
+    if (!toggleBtn || !controlPanel || !overlay) return;
+    
+    // Toggle panel visibility
+    const togglePanel = () => {
+        const isExpanded = controlPanel.classList.contains('expanded');
+        
+        if (isExpanded) {
+        // Close panel
+        controlPanel.classList.remove('expanded');
+        overlay.classList.remove('active');
+        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        } else {
+        // Open panel
+        controlPanel.classList.add('expanded');
+        overlay.classList.add('active');
+        toggleBtn.innerHTML = '<i class="fas fa-times"></i>';
+        }
+    };
+    
+    // Event listeners
+    toggleBtn.addEventListener('click', togglePanel);
+    overlay.addEventListener('click', togglePanel);
+    
+    // Close panel when clicking inside it (optional)
+    controlPanel.addEventListener('click', (e) => {
+        // Only close if clicking on a button that creates something
+        if (e.target.textContent.includes('Add Legend') || 
+            e.target.textContent.includes('Screenshot') ||
+            e.target.textContent.includes('Clear') ||
+            e.target.textContent.includes('Reset')) {
+        setTimeout(togglePanel, 500); // Small delay for user feedback
+        }
+    });
+    
+    // Handle screen resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+        // Desktop - ensure panel is visible and overlay is hidden
+        controlPanel.classList.remove('expanded');
+        overlay.classList.remove('active');
+        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+    }
 
   bindEvents() {
     this.map.on('click', (e) => {
@@ -99,5 +149,7 @@ class InteractiveMap {
         this.changeMapStyle(e.target.value);
       });
     }
+
+    this.setupMobileControls();
   }
 }

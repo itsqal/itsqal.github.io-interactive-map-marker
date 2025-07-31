@@ -392,3 +392,78 @@ input[type="file"]:hover {
     right: 14px;
     }
 }
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  /* Mobile legend positioning - top right corner */
+  .legend {
+    top: 20px !important;
+    right: 20px !important;
+    bottom: auto !important;
+    width: calc(100vw - 100px) !important;
+    max-width: 250px !important;
+    z-index: 1001;
+  }
+  
+  /* Control panel - hidden by default on mobile */
+  .legend-controls {
+    position: fixed !important;
+    top: 20px !important;
+    left: -280px !important; /* Hidden by default */
+    width: 280px !important;
+    height: calc(100vh - 40px) !important;
+    overflow-y: auto !important;
+    transition: left 0.3s ease !important;
+    z-index: 1002;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3) !important;
+  }
+  
+  /* When expanded */
+  .legend-controls.expanded {
+    left: 20px !important;
+  }
+  
+  /* Mobile toggle button */
+  .mobile-toggle {
+    display: block !important;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1003;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .mobile-toggle:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+  }
+  
+  /* Overlay when panel is open */
+  .mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+  }
+  
+  .mobile-overlay.active {
+    display: block;
+  }
+}
+
+/* Hide mobile toggle on desktop */
+@media (min-width: 769px) {
+  .mobile-toggle {
+    display: none !important;
+  }
+}
